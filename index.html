@@ -74,6 +74,7 @@
         .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
         .nav-links a { font-size: 0.8rem; font-weight: 400; color: rgba(255,255,255,0.65); text-decoration: none; letter-spacing: 0.04em; transition: color 0.25s; }
         .nav-links a:hover { color: var(--lime); }
+        .nav-phone a { color: var(--lime) !important; font-weight: 600 !important; font-family: 'Syne', sans-serif !important; letter-spacing: 0.02em !important; }
 
         .nav-cta {
             background: var(--lime) !important;
@@ -350,6 +351,116 @@
         .d1 { transition-delay:0.1s; } .d2 { transition-delay:0.2s; }
         .d3 { transition-delay:0.3s; } .d4 { transition-delay:0.4s; }
 
+        /* ── FEATURED SERVICE CARD ── */
+        .svc-card-featured {
+            background: var(--dark) !important;
+            border-left: 3px solid var(--lime);
+        }
+        .svc-card-featured::before {
+            content: 'OUR SPECIALTY';
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            font-size: 0.57rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            color: var(--lime);
+            border: 1px solid rgba(141,198,63,0.35);
+            padding: 0.2rem 0.55rem;
+        }
+        .svc-card-featured .svc-name { font-size: 1.3rem; }
+        .svc-card-featured .svc-num { color: rgba(141,198,63,0.16); }
+
+        /* ── CONSTRUCTION SHOWCASE ── */
+        .construction-showcase {
+            padding: 7rem 4rem;
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .construction-showcase::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 15% 50%, rgba(141,198,63,0.07) 0%, transparent 55%);
+        }
+        .cs-inner { position: relative; }
+        .cs-top {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 3rem;
+            margin-bottom: 3.5rem;
+        }
+        .cs-header { max-width: 560px; }
+        .cs-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.02;
+            letter-spacing: -0.03em;
+            margin: 1rem 0 1.5rem;
+        }
+        .cs-header h2 em { color: var(--lime); font-style: normal; }
+        .cs-header p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.8;
+        }
+        .cs-projects {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            margin-bottom: 3rem;
+        }
+        .cs-project {
+            background: var(--forest);
+            padding: 2.25rem 2rem;
+            transition: background 0.3s;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .cs-project::after {
+            content: '';
+            position: absolute; left: 0; bottom: 0; right: 0; height: 2px;
+            background: var(--lime);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .cs-project:hover { background: var(--forest-lt); }
+        .cs-project:hover::after { transform: scaleX(1); }
+        .cs-proj-icon {
+            width: 46px; height: 46px;
+            border: 1px solid rgba(141,198,63,0.25);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .cs-proj-icon svg { width: 22px; height: 22px; stroke: var(--lime); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .cs-proj-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+        .cs-divider { width: 28px; height: 1.5px; background: var(--lime); margin: 0.75rem 0; opacity: 0.6; }
+        .cs-proj-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+        .cs-cta { display: flex; align-items: center; gap: 1.5rem; }
+        .cs-note { font-size: 0.78rem; font-weight: 300; color: rgba(255,255,255,0.35); }
+
+        @media (max-width: 1100px) { .cs-projects { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) {
+            .construction-showcase { padding: 4rem 1.5rem; }
+            .cs-top { flex-direction: column; gap: 1.5rem; }
+            .cs-projects { grid-template-columns: 1fr 1fr; }
+        }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 1100px) {
             .services-grid { grid-template-columns: 1fr 1fr; }
@@ -363,6 +474,8 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .hero { padding: 0 1.5rem 4rem; }
+            .hero-headline { font-size: clamp(1.9rem, 9vw, 3rem); }
+            .hero-deco { display: none; }
             .hero-sub { flex-direction: column; gap: 2rem; }
             .hero-scroll { display: none; }
             .services { padding: 4rem 1.5rem; }
@@ -395,8 +508,10 @@
     </a>
     <ul class="nav-links">
         <li><a href="#services">Services</a></li>
+        <li><a href="#construction">Construction</a></li>
         <li><a href="#reviews">Reviews</a></li>
         <li><a href="#area">Service Area</a></li>
+        <li class="nav-phone"><a href="tel:4402235433">440-223-5433</a></li>
         <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
     </ul>
     <div class="hamburger" id="ham" onclick="toggleMenu()">
@@ -429,7 +544,7 @@
     </h1>
 
     <div class="hero-sub">
-        <p class="hero-desc">Lawn care, snow removal, tree trimming, and full outdoor construction — patios, decks, retaining walls, and concrete. Reliable service, honest pricing, and 40+ five-star reviews across the region.</p>
+        <p class="hero-desc">Custom patios, decks, retaining walls, and concrete work — plus lawn care, tree trimming, and snow removal. Honest pricing, 40+ five-star reviews, and craftsmanship that lasts.</p>
         <div class="hero-btns">
             <a href="#contact" class="btn-lime">Get a Free Quote</a>
             <a href="#services" class="btn-ghost">Our Services</a>
@@ -445,21 +560,23 @@
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-        <span class="t-item">Lawn Mowing</span><span class="t-sep"> ✦ </span>
-        <span class="t-item">Snow Plowing</span><span class="t-sep"> ✦ </span>
-        <span class="t-item">Tree Trimming</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Patio Installation</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Deck Building</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Retaining Walls</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Concrete Work</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Tuck Pointing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Lawn Mowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Snow Plowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Tree Trimming</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Northeast Ohio</span><span class="t-sep"> ✦ </span>
-        <span class="t-item">Lawn Mowing</span><span class="t-sep"> ✦ </span>
-        <span class="t-item">Snow Plowing</span><span class="t-sep"> ✦ </span>
-        <span class="t-item">Tree Trimming</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Patio Installation</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Deck Building</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Retaining Walls</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Concrete Work</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Tuck Pointing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Lawn Mowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Snow Plowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Tree Trimming</span><span class="t-sep"> ✦ </span>
         <span class="t-item">Northeast Ohio</span><span class="t-sep"> ✦ </span>
     </div>
 </div>
@@ -475,9 +592,26 @@
     </div>
 
     <div class="services-grid">
-        <!-- Lawn Care -->
-        <div class="svc-card reveal">
+        <!-- Outdoor Construction — FEATURED -->
+        <div class="svc-card svc-card-featured reveal">
             <div class="svc-num">01</div>
+            <div class="svc-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="4" rx="1"/><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="16" y="3" width="6" height="4" rx="1"/><rect x="2" y="10" width="6" height="4" rx="1"/><rect x="9" y="10" width="6" height="4" rx="1"/><rect x="16" y="10" width="6" height="4" rx="1"/><rect x="5" y="17" width="14" height="4" rx="1"/></svg>
+            </div>
+            <div class="svc-name">Outdoor Construction</div>
+            <p class="svc-desc">Custom-built patios, decks, retaining walls, concrete work, and tuck pointing — transforming outdoor spaces with craftsmanship built to last for decades.</p>
+            <div class="svc-tags">
+                <span class="svc-tag">Patios</span>
+                <span class="svc-tag">Decks</span>
+                <span class="svc-tag">Retaining Walls</span>
+                <span class="svc-tag">Concrete</span>
+                <span class="svc-tag">Tuck Pointing</span>
+            </div>
+        </div>
+
+        <!-- Lawn Care -->
+        <div class="svc-card reveal d1">
+            <div class="svc-num">02</div>
             <div class="svc-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 7 7 3 2 3c0 5 4 9 10 9M12 12C12 7 17 3 22 3c0 5-4 9-10 9"/></svg>
             </div>
@@ -492,8 +626,8 @@
         </div>
 
         <!-- Snow Plowing -->
-        <div class="svc-card reveal d1">
-            <div class="svc-num">02</div>
+        <div class="svc-card reveal d2">
+            <div class="svc-num">03</div>
             <div class="svc-icon">
                 <svg viewBox="0 0 24 24"><path d="M20 17.58A5 5 0 0018 8h-1.26A8 8 0 104 16.25M8 16h.01M8 20h.01M12 18h.01M12 22h.01M16 16h.01M16 20h.01"/></svg>
             </div>
@@ -507,8 +641,8 @@
         </div>
 
         <!-- Tree Trimming -->
-        <div class="svc-card reveal d2">
-            <div class="svc-num">03</div>
+        <div class="svc-card reveal d3">
+            <div class="svc-num">04</div>
             <div class="svc-icon">
                 <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.6"/><path d="M17 8c.5 3-1.5 5-4 5.5M17 8c1 2 .5 4.5-1 6"/><path d="M12 13.5c-1 3.5-3.5 5-5.5 6.1"/><line x1="12" y1="22" x2="12" y2="13"/></svg>
             </div>
@@ -520,20 +654,56 @@
                 <span class="svc-tag">Dead Branches</span>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Outdoor Construction -->
-        <div class="svc-card reveal d3">
-            <div class="svc-num">04</div>
-            <div class="svc-icon">
-                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="4" rx="1"/><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="16" y="3" width="6" height="4" rx="1"/><rect x="2" y="10" width="6" height="4" rx="1"/><rect x="9" y="10" width="6" height="4" rx="1"/><rect x="16" y="10" width="6" height="4" rx="1"/><rect x="5" y="17" width="14" height="4" rx="1"/></svg>
+<!-- CONSTRUCTION SHOWCASE -->
+<section class="construction-showcase" id="construction">
+    <div class="cs-inner">
+        <div class="cs-top reveal">
+            <div class="cs-header">
+                <div class="sec-label" style="color:var(--lime);">Outdoor Construction</div>
+                <h2>Built to last.<br>Built for <em>you.</em></h2>
+                <p>From custom stone patios to full deck builds and retaining walls — MRK brings hands-on craftsmanship to every outdoor construction project. We design, we build, we stand behind it.</p>
             </div>
-            <div class="svc-name">Outdoor Construction</div>
-            <p class="svc-desc">Transform your outdoor space with custom-built patios, decks, retaining walls, and concrete work designed to last.</p>
-            <div class="svc-tags">
-                <span class="svc-tag">Patios</span>
-                <span class="svc-tag">Decks</span>
-                <span class="svc-tag">Retaining Walls</span>
-                <span class="svc-tag">Concrete</span>
+            <a href="#contact" class="btn-lime" style="flex-shrink:0; align-self:flex-end;">Get a Free Project Quote</a>
+        </div>
+
+        <div class="cs-projects">
+            <div class="cs-project reveal">
+                <div class="cs-proj-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="0.5"/><rect x="13" y="3" width="8" height="8" rx="0.5"/><rect x="3" y="13" width="8" height="8" rx="0.5"/><rect x="13" y="13" width="8" height="8" rx="0.5"/></svg>
+                </div>
+                <div class="cs-proj-name">Patio Installation</div>
+                <div class="cs-divider"></div>
+                <div class="cs-proj-desc">Custom stone, paver, and stamped concrete patios designed to fit your yard and your lifestyle.</div>
+            </div>
+
+            <div class="cs-project reveal d1">
+                <div class="cs-proj-icon">
+                    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="3" y1="18" x2="21" y2="18"/><line x1="3" y1="4" x2="3" y2="20"/><line x1="21" y1="4" x2="21" y2="20"/></svg>
+                </div>
+                <div class="cs-proj-name">Deck Building</div>
+                <div class="cs-divider"></div>
+                <div class="cs-proj-desc">Wood and composite decks built to code, built to last — extending your living space into the outdoors.</div>
+            </div>
+
+            <div class="cs-project reveal d2">
+                <div class="cs-proj-icon">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="17" width="20" height="3" rx="0.5"/><rect x="4" y="13" width="16" height="3" rx="0.5"/><rect x="6" y="9" width="12" height="3" rx="0.5"/><rect x="8" y="5" width="8" height="3" rx="0.5"/></svg>
+                </div>
+                <div class="cs-proj-name">Retaining Walls</div>
+                <div class="cs-divider"></div>
+                <div class="cs-proj-desc">Structural retaining walls that hold back soil, control erosion, and add clean definition to any landscape.</div>
+            </div>
+
+            <div class="cs-project reveal d3">
+                <div class="cs-proj-icon">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 22 20 2 20"/><line x1="12" y1="10" x2="12" y2="16"/><line x1="12" y1="18" x2="12" y2="19"/></svg>
+                </div>
+                <div class="cs-proj-name">Concrete & Tuck Pointing</div>
+                <div class="cs-divider"></div>
+                <div class="cs-proj-desc">Poured concrete work and precision tuck pointing to restore mortar joints and protect masonry long-term.</div>
             </div>
         </div>
     </div>
@@ -680,12 +850,12 @@
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
-    <div class="cta-label reveal">Ready to get started?</div>
-    <h2 class="cta-title reveal d1">Let's make your<br><em>yard the best</em> on the block.</h2>
-    <p class="cta-sub reveal d2">Free quotes, no pressure. Serving Mentor, Euclid, Eastlake, and all of Northeast Ohio — call or message us today.</p>
+    <div class="cta-label reveal">Ready to build something?</div>
+    <h2 class="cta-title reveal d1">Transform your<br><em>outdoor space.</em></h2>
+    <p class="cta-sub reveal d2">Free project quotes, no pressure. Patios, decks, retaining walls, and more — serving all of Northeast Ohio. Call or message us today.</p>
     <div class="cta-btns reveal d3">
-        <a href="tel:your-number" class="btn-lime">Call Us Now</a>
-        <a href="mailto:your@email.com" class="btn-ghost">Send a Message</a>
+        <a href="tel:4402235433" class="btn-lime">Call 440-223-5433</a>
+        <a href="mailto:MRKLANDSCAPEI@gmail.com" class="btn-ghost">Send a Message</a>
     </div>
 </section>
 
