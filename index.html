@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRK Landscaping & Snowplowing LLC | Northeast Ohio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --forest:     #182C1E;
+            --forest-mid: #1F3826;
+            --forest-lt:  #274D30;
+            --lime:       #8DC63F;
+            --lime-lt:    #A3D952;
+            --lime-dim:   #6A9830;
+            --cream:      #F4F1EB;
+            --cream-2:    #EAE5DA;
+            --white:      #FFFFFF;
+            --dark:       #0E1A11;
+            --muted:      #7A9280;
+            --border:     #273D2D;
+            --border-lt:  #D8D1C4;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--forest);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.4rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(14, 26, 17, 0.96);
+            backdrop-filter: blur(14px);
+            padding: 0.9rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { text-decoration: none; display: flex; align-items: center; gap: 0.75rem; }
+        .logo-mark {
+            width: 38px; height: 38px;
+            background: var(--lime);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--forest);
+            letter-spacing: -0.03em;
+            flex-shrink: 0;
+        }
+        .logo-text { display: flex; flex-direction: column; line-height: 1; }
+        .logo-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); letter-spacing: 0.02em; }
+        .logo-sub  { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+
+        .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+        .nav-links a { font-size: 0.8rem; font-weight: 400; color: rgba(255,255,255,0.65); text-decoration: none; letter-spacing: 0.04em; transition: color 0.25s; }
+        .nav-links a:hover { color: var(--lime); }
+
+        .nav-cta {
+            background: var(--lime) !important;
+            color: var(--forest) !important;
+            font-weight: 600 !important;
+            padding: 0.6rem 1.4rem !important;
+            font-size: 0.78rem !important;
+            letter-spacing: 0.05em !important;
+            transition: background 0.3s ease, transform 0.2s ease !important;
+        }
+        .nav-cta:hover { background: var(--lime-lt) !important; transform: translateY(-1px); color: var(--forest) !important; }
+
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); transition: all 0.3s; }
+
+        #mob-menu {
+            display: none;
+            position: fixed; inset: 0;
+            background: var(--dark);
+            z-index: 99;
+            padding: 6rem 2rem 2rem;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        #mob-menu a { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1.2rem; }
+        #mob-menu a.lime { color: var(--lime); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 4rem 5rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 80% 20%, rgba(141, 198, 63, 0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 10% 90%, rgba(141, 198, 63, 0.05) 0%, transparent 45%),
+                linear-gradient(160deg, #0E1A11 0%, #182C1E 50%, #1F3826 100%);
+        }
+
+        /* Hex grid pattern */
+        .hero-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(141,198,63,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(141,198,63,0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black 0%, transparent 100%);
+        }
+
+        /* Big decorative text */
+        .hero-deco {
+            position: absolute;
+            top: 50%;
+            right: -2rem;
+            transform: translateY(-50%);
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(10rem, 22vw, 22rem);
+            font-weight: 800;
+            color: rgba(141, 198, 63, 0.04);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid rgba(141,198,63,0.3);
+            padding: 0.4rem 1rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.2s forwards;
+        }
+        .hero-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); animation: pulse 2s ease infinite; }
+        .hero-badge-text { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); }
+
+        @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.8); } }
+
+        .hero-headline {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 8.5rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            max-width: 820px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .hl1 { display: block; opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards; }
+        .hl2 { display: block; color: var(--lime); opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
+        .hl3 { display: block; opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards; }
+
+        .hero-sub {
+            display: flex;
+            gap: 5rem;
+            align-items: flex-end;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.8s forwards;
+        }
+        .hero-desc { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 380px; }
+        .hero-btns { display: flex; gap: 1rem; flex-shrink: 0; }
+
+        .btn-lime { display: inline-block; background: var(--lime); color: var(--forest); font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 1rem 2rem; transition: background 0.3s, transform 0.2s; }
+        .btn-lime:hover { background: var(--lime-lt); transform: translateY(-2px); }
+
+        .btn-ghost { display: inline-block; color: var(--white); font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.06em; text-decoration: none; padding: 1rem; border: 1px solid rgba(255,255,255,0.2); transition: border-color 0.3s, color 0.3s; }
+        .btn-ghost:hover { border-color: var(--lime); color: var(--lime); }
+
+        .hero-scroll {
+            position: absolute;
+            right: 4rem; bottom: 5rem;
+            display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+            opacity: 0; animation: fadeIn 1s ease 1.4s forwards;
+        }
+        .hero-scroll span { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-lr; }
+        .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--lime), transparent); animation: scrollPulse 2s ease infinite; }
+
+        /* ── TICKER ── */
+        .ticker { background: var(--lime); padding: 0.8rem 0; overflow: hidden; white-space: nowrap; }
+        .ticker-track { display: inline-flex; animation: ticker 28s linear infinite; }
+        .t-item { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--forest); padding: 0 2rem; }
+        .t-sep { color: var(--forest); opacity: 0.35; }
+
+        /* ── SERVICES ── */
+        .services { padding: 7rem 4rem; background: var(--forest-mid); }
+        .sec-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; }
+        .sec-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--lime); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.7rem; }
+        .sec-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--lime); }
+        .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+        .sec-title em { font-style: italic; color: var(--lime); font-family: 'Outfit', sans-serif; font-weight: 300; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+
+        .svc-card {
+            background: var(--forest-mid);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.35s;
+            cursor: default;
+        }
+        .svc-card:hover { background: var(--forest-lt); }
+
+        .svc-card::after {
+            content: '';
+            position: absolute; left: 0; bottom: 0; right: 0; height: 2px;
+            background: var(--lime);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .svc-card:hover::after { transform: scaleX(1); }
+
+        .svc-num { font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800; color: rgba(141,198,63,0.1); line-height: 1; margin-bottom: 1.5rem; transition: color 0.35s; }
+        .svc-card:hover .svc-num { color: rgba(141,198,63,0.22); }
+
+        .svc-icon { width: 44px; height: 44px; margin-bottom: 1.5rem; }
+        .svc-icon svg { width: 100%; height: 100%; stroke: var(--lime); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+        .svc-name { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+        .svc-desc { font-size: 0.85rem; font-weight: 300; color: var(--muted); line-height: 1.7; }
+        .svc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
+        .svc-tag { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime-dim); border: 1px solid rgba(141,198,63,0.2); padding: 0.25rem 0.6rem; }
+
+        /* ── STATS ── */
+        .stats { padding: 5rem 4rem; background: var(--lime); }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+        .stat-item { text-align: center; padding: 1rem 2rem; position: relative; }
+        .stat-item + .stat-item::before { content: ''; position: absolute; left: 0; top: 20%; bottom: 20%; width: 1px; background: rgba(24, 44, 30, 0.2); }
+        .stat-num { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; color: var(--forest); line-height: 1; letter-spacing: -0.03em; }
+        .stat-label { font-size: 0.8rem; font-weight: 500; color: var(--forest); opacity: 0.7; margin-top: 0.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+        /* ── REVIEWS ── */
+        .reviews { padding: 7rem 4rem; background: var(--cream); }
+        .reviews .sec-label { color: var(--lime-dim); }
+        .reviews .sec-label::before { background: var(--lime-dim); }
+        .reviews .sec-title { color: var(--forest); }
+
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+
+        .review-card {
+            background: var(--white);
+            padding: 2rem;
+            border: 1px solid var(--border-lt);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .review-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(24,44,30,0.1); }
+        .review-card:first-child { background: var(--forest); border-color: var(--forest); }
+        .review-card:first-child .review-text { color: rgba(255,255,255,0.85); }
+        .review-card:first-child .review-name { color: var(--white); }
+        .review-card:first-child .review-location { color: var(--muted); }
+        .review-card:first-child .review-source { color: var(--lime); }
+
+        .review-stars { display: flex; gap: 3px; margin-bottom: 1rem; }
+        .review-stars span { color: var(--lime); font-size: 0.9rem; }
+        .review-card:not(:first-child) .review-stars span { color: var(--lime-dim); }
+
+        .review-text { font-size: 0.95rem; font-weight: 300; line-height: 1.75; color: var(--forest-mid); margin-bottom: 1.5rem; font-style: italic; }
+        .review-footer { display: flex; align-items: center; justify-content: space-between; }
+        .review-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--forest); flex-shrink: 0; margin-right: 0.75rem; }
+        .review-card:first-child .review-avatar { background: var(--lime); }
+        .review-info { flex: 1; }
+        .review-name { font-size: 0.85rem; font-weight: 600; color: var(--forest); font-family: 'Syne', sans-serif; }
+        .review-location { font-size: 0.72rem; color: var(--muted); }
+        .review-source { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lime-dim); white-space: nowrap; }
+
+        .reviews-note { text-align: center; margin-top: 2.5rem; font-size: 0.8rem; color: var(--muted); }
+        .reviews-note a { color: var(--lime-dim); text-decoration: none; font-weight: 500; }
+
+        /* ── SERVICE AREA ── */
+        .area { padding: 5rem 4rem; background: var(--forest); border-top: 1px solid var(--border); }
+        .area-inner { display: flex; align-items: center; justify-content: space-between; gap: 4rem; }
+        .area-left { flex: 1; }
+        .area-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+        .area-pill {
+            font-size: 0.75rem; font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.9rem;
+            transition: border-color 0.3s, color 0.3s;
+        }
+        .area-pill:hover { border-color: var(--lime); color: var(--lime); }
+        .area-right { flex-shrink: 0; text-align: center; }
+        .area-badge { border: 1px solid var(--lime); padding: 2rem 3rem; display: inline-block; }
+        .area-badge-num { font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: var(--lime); line-height: 1; }
+        .area-badge-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 0.3rem; }
+
+        /* ── CTA ── */
+        .cta-section {
+            padding: 7rem 4rem;
+            background: var(--dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(141,198,63,0.08) 0%, transparent 65%);
+        }
+        .cta-label { position: relative; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--lime); margin-bottom: 1.5rem; }
+        .cta-title { position: relative; font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+        .cta-title em { color: var(--lime); font-style: normal; }
+        .cta-sub { position: relative; font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.5); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .cta-btns { position: relative; display: flex; justify-content: center; gap: 1rem; }
+
+        /* ── FOOTER ── */
+        footer { background: var(--forest-mid); border-top: 1px solid var(--border); padding: 3.5rem 4rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+        .footer-brand { display: flex; align-items: center; gap: 0.75rem; }
+        .footer-desc { font-size: 0.8rem; font-weight: 300; color: var(--muted); max-width: 320px; line-height: 1.6; }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--lime); }
+        .footer-copy { font-size: 0.7rem; color: var(--muted); margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+        @keyframes ticker  { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+        @keyframes scrollPulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+        .reveal { opacity:0; transform:translateY(36px); transition:opacity 0.8s ease, transform 0.8s ease; }
+        .reveal.on { opacity:1; transform:translateY(0); }
+        .d1 { transition-delay:0.1s; } .d2 { transition-delay:0.2s; }
+        .d3 { transition-delay:0.3s; } .d4 { transition-delay:0.4s; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1100px) {
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .reviews-grid { grid-template-columns: 1fr 1fr; }
+            .area-inner { flex-direction: column; text-align: center; }
+            .area-pills { justify-content: center; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 1.5rem; }
+            nav.scrolled { padding: 0.8rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .hero { padding: 0 1.5rem 4rem; }
+            .hero-sub { flex-direction: column; gap: 2rem; }
+            .hero-scroll { display: none; }
+            .services { padding: 4rem 1.5rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .sec-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+            .stats { padding: 3rem 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .stat-item + .stat-item::before { display: none; }
+            .reviews { padding: 4rem 1.5rem; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .area { padding: 4rem 1.5rem; }
+            .cta-section { padding: 5rem 1.5rem; }
+            .cta-btns { flex-direction: column; align-items: center; }
+            footer { padding: 2.5rem 1.5rem; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+    <a href="#" class="logo">
+        <div class="logo-mark">MRK</div>
+        <div class="logo-text">
+            <span class="logo-name">MRK Landscaping</span>
+            <span class="logo-sub">& Snowplowing LLC</span>
+        </div>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#area">Service Area</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+    </ul>
+    <div class="hamburger" id="ham" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<div id="mob-menu">
+    <a href="#services" onclick="toggleMenu()">Services</a>
+    <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+    <a href="#area" onclick="toggleMenu()">Service Area</a>
+    <a href="#contact" class="lime" onclick="toggleMenu()">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-deco">MRK</div>
+
+    <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span class="hero-badge-text">Serving Northeast Ohio · GreenPal Verified</span>
+    </div>
+
+    <h1 class="hero-headline">
+        <span class="hl1">Northeast Ohio's</span>
+        <span class="hl2">outdoor crew.</span>
+        <span class="hl3">Done right.</span>
+    </h1>
+
+    <div class="hero-sub">
+        <p class="hero-desc">Lawn care, snow removal, tree trimming, and full outdoor construction — patios, decks, retaining walls, and concrete. Reliable service, honest pricing, and 40+ five-star reviews across the region.</p>
+        <div class="hero-btns">
+            <a href="#contact" class="btn-lime">Get a Free Quote</a>
+            <a href="#services" class="btn-ghost">Our Services</a>
+        </div>
+    </div>
+
+    <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+    </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+        <span class="t-item">Lawn Mowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Snow Plowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Tree Trimming</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Patio Installation</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Deck Building</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Retaining Walls</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Concrete Work</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Northeast Ohio</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Lawn Mowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Snow Plowing</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Tree Trimming</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Patio Installation</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Deck Building</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Retaining Walls</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Concrete Work</span><span class="t-sep"> ✦ </span>
+        <span class="t-item">Northeast Ohio</span><span class="t-sep"> ✦ </span>
+    </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="sec-header reveal">
+        <div>
+            <div class="sec-label">What We Do</div>
+            <h2 class="sec-title">Full-service <em>outdoor</em><br>professionals.</h2>
+        </div>
+        <p style="font-size:0.9rem; color:var(--muted); max-width:280px; text-align:right; line-height:1.7;">From weekly lawn care to full outdoor builds — we handle it all, year round.</p>
+    </div>
+
+    <div class="services-grid">
+        <!-- Lawn Care -->
+        <div class="svc-card reveal">
+            <div class="svc-num">01</div>
+            <div class="svc-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 7 7 3 2 3c0 5 4 9 10 9M12 12C12 7 17 3 22 3c0 5-4 9-10 9"/></svg>
+            </div>
+            <div class="svc-name">Lawn Care & Mowing</div>
+            <p class="svc-desc">Routine yard maintenance, precision grass cutting, edging, and clean-up. Scheduled weekly or bi-weekly — whatever works for you.</p>
+            <div class="svc-tags">
+                <span class="svc-tag">Mowing</span>
+                <span class="svc-tag">Edging</span>
+                <span class="svc-tag">Clean-up</span>
+                <span class="svc-tag">Maintenance</span>
+            </div>
+        </div>
+
+        <!-- Snow Plowing -->
+        <div class="svc-card reveal d1">
+            <div class="svc-num">02</div>
+            <div class="svc-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 17.58A5 5 0 0018 8h-1.26A8 8 0 104 16.25M8 16h.01M8 20h.01M12 18h.01M12 22h.01M16 16h.01M16 20h.01"/></svg>
+            </div>
+            <div class="svc-name">Snow Plowing</div>
+            <p class="svc-desc">Reliable snow removal when Northeast Ohio winters hit. Driveways, parking lots, and walkways cleared safely and promptly.</p>
+            <div class="svc-tags">
+                <span class="svc-tag">Driveways</span>
+                <span class="svc-tag">Parking Lots</span>
+                <span class="svc-tag">Walkways</span>
+            </div>
+        </div>
+
+        <!-- Tree Trimming -->
+        <div class="svc-card reveal d2">
+            <div class="svc-num">03</div>
+            <div class="svc-icon">
+                <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.6"/><path d="M17 8c.5 3-1.5 5-4 5.5M17 8c1 2 .5 4.5-1 6"/><path d="M12 13.5c-1 3.5-3.5 5-5.5 6.1"/><line x1="12" y1="22" x2="12" y2="13"/></svg>
+            </div>
+            <div class="svc-name">Tree Trimming</div>
+            <p class="svc-desc">Safe, clean tree and shrub trimming to keep your property looking sharp and your trees healthy throughout the season.</p>
+            <div class="svc-tags">
+                <span class="svc-tag">Trimming</span>
+                <span class="svc-tag">Shaping</span>
+                <span class="svc-tag">Dead Branches</span>
+            </div>
+        </div>
+
+        <!-- Outdoor Construction -->
+        <div class="svc-card reveal d3">
+            <div class="svc-num">04</div>
+            <div class="svc-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="4" rx="1"/><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="16" y="3" width="6" height="4" rx="1"/><rect x="2" y="10" width="6" height="4" rx="1"/><rect x="9" y="10" width="6" height="4" rx="1"/><rect x="16" y="10" width="6" height="4" rx="1"/><rect x="5" y="17" width="14" height="4" rx="1"/></svg>
+            </div>
+            <div class="svc-name">Outdoor Construction</div>
+            <p class="svc-desc">Transform your outdoor space with custom-built patios, decks, retaining walls, and concrete work designed to last.</p>
+            <div class="svc-tags">
+                <span class="svc-tag">Patios</span>
+                <span class="svc-tag">Decks</span>
+                <span class="svc-tag">Retaining Walls</span>
+                <span class="svc-tag">Concrete</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats reveal">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-num">40+</div>
+            <div class="stat-label">Verified GreenPal Reviews</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">Years Serving Northeast Ohio</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Communities Served</div>
+        </div>
+    </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+    <div class="sec-header reveal">
+        <div>
+            <div class="sec-label">Customer Reviews</div>
+            <h2 class="sec-title">What our<br><em>neighbors</em> say.</h2>
+        </div>
+        <p style="font-size:0.9rem; color:var(--muted); max-width:260px; text-align:right; line-height:1.7; color:#7A9280;">All reviews verified through GreenPal — real customers, real results.</p>
+    </div>
+
+    <div class="reviews-grid">
+        <div class="review-card reveal">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"Very professional, great communication, reliable. Exactly the kind of service you want for your home."</p>
+            <div class="review-footer">
+                <div class="review-avatar">CH</div>
+                <div class="review-info">
+                    <div class="review-name">Cory H.</div>
+                    <div class="review-location">Mentor, OH</div>
+                </div>
+                <div class="review-source">GreenPal ✓</div>
+            </div>
+        </div>
+
+        <div class="review-card reveal d1">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"They always do a great job!!! Affordable, great rates — I can't recommend them enough."</p>
+            <div class="review-footer">
+                <div class="review-avatar" style="background:var(--cream-2); color:var(--forest);">TS</div>
+                <div class="review-info">
+                    <div class="review-name">Tracie S.</div>
+                    <div class="review-location">Eastlake, OH</div>
+                </div>
+                <div class="review-source">GreenPal ✓</div>
+            </div>
+        </div>
+
+        <div class="review-card reveal d2">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"We thought you did a great job! It is really important to him that his lawn looks good. Thank you also for blowing off his back patio — he really appreciated that."</p>
+            <div class="review-footer">
+                <div class="review-avatar" style="background:var(--cream-2); color:var(--forest);">AS</div>
+                <div class="review-info">
+                    <div class="review-name">Adam S.</div>
+                    <div class="review-location">Euclid, OH</div>
+                </div>
+                <div class="review-source">GreenPal ✓</div>
+            </div>
+        </div>
+
+        <div class="review-card reveal d1">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"Always great! Consistent, on time, and the lawn always looks exactly how I want it."</p>
+            <div class="review-footer">
+                <div class="review-avatar" style="background:var(--cream-2); color:var(--forest);">SW</div>
+                <div class="review-info">
+                    <div class="review-name">Shellie W.</div>
+                    <div class="review-location">Mentor, OH</div>
+                </div>
+                <div class="review-source">GreenPal ✓</div>
+            </div>
+        </div>
+
+        <div class="review-card reveal d2">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"The guys did great! I gave a $20 cash tip at the time of service. I look forward to a repeating service — they went above and beyond."</p>
+            <div class="review-footer">
+                <div class="review-avatar" style="background:var(--cream-2); color:var(--forest);">JG</div>
+                <div class="review-info">
+                    <div class="review-name">Jenna G.</div>
+                    <div class="review-location">Willoughby Hills, OH</div>
+                </div>
+                <div class="review-source">GreenPal ✓</div>
+            </div>
+        </div>
+
+        <div class="review-card reveal d3">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"On time. Great job. Exactly what I needed — no hassle, no follow-up required. Will keep scheduling."</p>
+            <div class="review-footer">
+                <div class="review-avatar" style="background:var(--cream-2); color:var(--forest);">MH</div>
+                <div class="review-info">
+                    <div class="review-name">Michelle H.</div>
+                    <div class="review-location">Mentor, OH</div>
+                </div>
+                <div class="review-source">GreenPal ✓</div>
+            </div>
+        </div>
+    </div>
+    <p class="reviews-note reveal">40+ verified reviews on <a href="#">GreenPal</a> · Average 5.0 stars</p>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="area" id="area">
+    <div class="area-inner">
+        <div class="area-left reveal">
+            <div class="sec-label" style="color:var(--lime);">Where We Work</div>
+            <h2 class="sec-title" style="font-family:'Syne',sans-serif; font-weight:800;">Proud to serve<br><span style="color:var(--lime);">Northeast Ohio.</span></h2>
+            <div class="area-pills">
+                <span class="area-pill">Mentor</span>
+                <span class="area-pill">Eastlake</span>
+                <span class="area-pill">Euclid</span>
+                <span class="area-pill">Lyndhurst</span>
+                <span class="area-pill">Willoughby</span>
+                <span class="area-pill">Willoughby Hills</span>
+                <span class="area-pill">Mayfield Heights</span>
+                <span class="area-pill">University Heights</span>
+                <span class="area-pill">Cleveland Heights</span>
+                <span class="area-pill">Cleveland</span>
+                <span class="area-pill">& Surrounding Areas</span>
+            </div>
+        </div>
+        <div class="area-right reveal d2">
+            <div class="area-badge">
+                <div class="area-badge-num">10+</div>
+                <div class="area-badge-label">Communities Served</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+    <div class="cta-label reveal">Ready to get started?</div>
+    <h2 class="cta-title reveal d1">Let's make your<br><em>yard the best</em> on the block.</h2>
+    <p class="cta-sub reveal d2">Free quotes, no pressure. Serving Mentor, Euclid, Eastlake, and all of Northeast Ohio — call or message us today.</p>
+    <div class="cta-btns reveal d3">
+        <a href="tel:your-number" class="btn-lime">Call Us Now</a>
+        <a href="mailto:your@email.com" class="btn-ghost">Send a Message</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">
+                <div class="logo-mark" style="width:32px;height:32px;font-size:0.8rem;">MRK</div>
+                <div>
+                    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;">MRK Landscaping & Snowplowing LLC</div>
+                </div>
+            </div>
+            <p class="footer-desc" style="margin-top:0.75rem;">Professional lawn care, snow removal, tree trimming, and outdoor construction across Northeast Ohio.</p>
+        </div>
+        <div class="footer-links">
+            <a href="#services">Services</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#area">Service Area</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+    <p class="footer-copy">© 2025 MRK Landscaping & Snowplowing LLC · Northeast Ohio · All rights reserved.</p>
+</footer>
+
+<script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+
+    function toggleMenu() {
+        const m = document.getElementById('mob-menu');
+        m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+</script>
+</body>
+</html>
